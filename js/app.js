@@ -16,9 +16,10 @@ let storeHours = ['6am', '7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm
 //     avgCookiesSoldEachHour: function(){
 //         for(let i = 0; i < storeHours.length; i++){
 //           let num = this.avg * this.getRandomCustomer();
-//           this.avgCookiesSoldEachHourArray.push(`${num} cookies sold ${storeHours[i]}`);  
+//           this.avgCookiesSoldEachHourArray.push(`${num} cookies sold ${storeHours[i]}`); 
+//                 this.dailyTotal = this.dailyTotal + avgCookiesSoldEachHourArray;
 //         } 
-//         console.log(this.avgCookiesSoldEachHourArray);
+//         console.log(this.dailyTotal);
 //     },
 //     render: function(){
 //         const profileContainer = document.getElementById('SeattleSales');
@@ -74,9 +75,10 @@ function City(name, min, max, avg){
     this.avgCookiesSoldEachHour = function(){
         for(let i = 0; i < storeHours.length; i++){
           let num = this.avg * this.getRandomCustomer();
-          this.avgCookiesSoldEachHourArray.push(`${num} cookies sold ${storeHours[i]}`);  
+          this.avgCookiesSoldEachHourArray.push(`${num} cookies sold ${storeHours[i]}`); 
+          this.dailyTotal += num;
         } 
-        console.log(this.avgCookiesSoldEachHourArray);
+        console.log(this.dailyTotal);
     };
     this.render = function(){
         const profileContainer = document.getElementById('Sales');
@@ -101,6 +103,10 @@ function City(name, min, max, avg){
             li.textContent = this.avgCookiesSoldEachHourArray[i];
             cookiesSold.appendChild(li);
         }
+        let totalLi = document.createElement("li");
+        totalLi.textContent = `${this.dailyTotal} cookies sold`;
+        cookiesSold.appendChild(totalLi); 
+
         // console.log(this.renderList);
     }
 }
