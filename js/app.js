@@ -67,9 +67,10 @@ function City(name, min, max, avg){
     this.avg = avg;
     this.avgCookiesSoldEachHourArray = [];
     this.listId = `${this.name}`;
+    this.dailyTotal = 0;
     storeArray.push(this);
 
-    this.dailyTotal = 0;
+    
     this.getRandomCustomer = function(){
         return Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
     },
@@ -112,7 +113,7 @@ function City(name, min, max, avg){
     }
 }
 
-let seattle = new City('seattle',
+new City('seattle',
 '23',
 '65',
 '6',
@@ -120,49 +121,53 @@ let seattle = new City('seattle',
 
 )
 
-seattle.render();
+// seattle.render();
 
-let tokyo = new City(
+new City(
     'Tokyo', '3', '24','2',
 )
 
-tokyo.render();
+// tokyo.render();
 
-let dubai = new City(
+new City(
     'Dubai','11','38','3',
 )
 
-dubai.render();
+// dubai.render();
 
-let paris = new City(
+ new City(
     'Paris','20','38','2',
 )
 
-paris.render();
+// paris.render();
 
 
-let lima = new City(
+ new City(
     'lima','2','16','5',
 )
 
-lima.render();
+// lima.render();
 
 
 const cookieTable = document.querySelector('tbody');
 
 City.prototype.renderTable = function(){
+    this.avgCookiesSoldEachHour();
     console.log(this.avgCookiesSoldEachHourArray);
     let tableRow = document.createElement('tr');
-    cookieTable.appendChild(tableRow);
-    
     let tdName = document.createElement('td');
     tdName.textContent = this.name;
     tableRow.appendChild(tdName);
-    for (let i = 0; i < this.avgCookiesSoldEachHourArray.length; i++){
+    cookieTable.appendChild(tableRow);
+    for (let i = 0; i < storeHours.length; i++){
         let td = document.createElement('td');
         td.textContent = this.avgCookiesSoldEachHourArray[i];
         tableRow.appendChild(td);
     }
+    let total = document.createElement('td');
+    total.textContent = this.dailyTotal;
+    tableRow.appendChild(total);
+    cookieTable.appendChild(tableRow);
     
 
 }
@@ -180,20 +185,7 @@ City.prototype.renderTable = function(){
 //     }
 
 // };
-// let total = [];
-// for (let i = 0; i < numberArray[i].length; i++) {
-//   let hourTotal = 0;
-// console.log(hourTotal);
-//   for (let j = 0; j < numberArray.length; j++) {
-
-//     console.log(`numberArray[${j}][${i}]: `, numberArray[j][i]);
-//    hourTotal += numberArray[j][i];
-//   //  console.log(hourTotal);
-//   }
-//   total.push(hourTotal);
-//   console.log(hourTotal);
-// }
-// console.log(total);
+//
 // seattle.generateHours();
 let hours = document.querySelector('thead');
 function generateHours(){
@@ -208,15 +200,50 @@ function generateHours(){
         td.textContent = 'hours';
         tr.appendChild(td);
         }
+        
         let td = document.createElement('td');
         td.textContent = storeHours[i];
         tr.appendChild(td);
     }
 
 };
+//     let total = [];
+// let hourlyTotal = document.querySelector('tfoot');
+// City.prototype.hourTotal = function(){
+//     let tr1 = document.createElement('tr');
+//     hourlyTotal.appendChild(tr1);
+
+   
+//     for (let i = 0; i < this.avgCookiesSoldEachHourArray[i].length; i++) {
+//       let hourTotal = 0;
+//     console.log(hourTotal);
+//       for (let j = 0; j < this.avgCookiesSoldEachHourArray.length; j++) {
+    
+//         console.log(`avgCookiesSoldEachHourArray[${j}][${i}]: `, avgCookiesSoldEachHourArray[j][i]);
+//        hourTotal += avgCookiesSoldEachHourArray[j][i];
+//        let td1 = document.createElement('td');
+//         td1.textContent = total[i];
+//         tr1.appendChild(td);
+//        console.log(hourTotal);
+//       }
+//       total.push(hourTotal);
+//       console.log(hourTotal);
+//     }
+//     console.log(total);
+// }
+
+
+// seattle.hourTotal();
 generateHours();
-seattle.renderTable();
-tokyo.renderTable();
-dubai.renderTable();
-paris.renderTable();
-lima.renderTable();
+function renderAllStore(){
+    for(let i = 0; i < storeArray.length; i++){
+        storeArray[i].renderTable();
+    }
+}
+renderAllStore();
+
+// seattle.renderTable();
+// tokyo.renderTable();
+// dubai.renderTable();
+// paris.renderTable();
+// lima.renderTable();
