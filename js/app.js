@@ -24,13 +24,13 @@ function City(name, min, max, avg){
           this.avgCookiesSoldEachHourArray.push(num); 
           this.dailyTotal += num;
         } 
-        console.log(this.dailyTotal);
+        // console.log(this.dailyTotal);
     };
     this.render = function(){
         const profileContainer = document.getElementById('Sales');
         this.avgCookiesSoldEachHour();
         let article = document.createElement('article');
-        console.log(this.name);
+        // console.log(this.name);
     
         article.setAttribute(`${this.name}`,"ID");
         profileContainer.appendChild(article);
@@ -97,7 +97,7 @@ const cookieTable = document.querySelector('tbody');
 
 City.prototype.renderTable = function(){
     this.avgCookiesSoldEachHour();
-    console.log(this.avgCookiesSoldEachHourArray);
+    // console.log(this.avgCookiesSoldEachHourArray);
     let tableRow = document.createElement('tr');
     let tdName = document.createElement('td');
     tdName.textContent = this.name;
@@ -133,11 +133,15 @@ function generateHours(){
         let td = document.createElement('td');
         td.textContent = storeHours[i];
         tr.appendChild(td);
+        
     }
-
+    let tabledata = document.createElement('td');
+    tabledata.textContent = 'total';
+    tr.appendChild(tabledata);
 };
     let total = [];
 let hourlyTotal = document.querySelector('tfoot');
+let totalOfTotal = 0;
 function hourTotal(){
     let tr1 = document.createElement('tr');
     hourlyTotal.appendChild(tr1);
@@ -147,22 +151,32 @@ function hourTotal(){
    
     for (let i = 0; i < storeHours.length; i++) {
         let td1 = document.createElement('td');
+        
       let hourTotal = 0;
-    console.log(hourTotal);
+      
       for (let j = 0; j < storeArray.length; j++) {
-          console.log(storeArray[j].avgCookiesSoldEachHourArray[i]);
+        //   console.log(storeArray[j].avgCookiesSoldEachHourArray[i]);
     
         // console.log(`avgCookiesSoldEachHourArray[${j}][${i}]: `, avgCookiesSoldEachHourArray[j][i]);
        hourTotal += storeArray[j].avgCookiesSoldEachHourArray[i];
        
         td1.textContent = hourTotal;
+        
         tr1.appendChild(td1);
-       console.log(hourTotal);
+        // totalOfTotal += 
+        console.log(storeArray[j].avgCookiesSoldEachHourArray[i]);
+       console.log('hourTotal ',hourTotal);
+       console.log('totalOfTotal ', totalOfTotal);
       }
+      totalOfTotal += hourTotal;
       total.push(hourTotal);
-      console.log(hourTotal);
+    //   console.log(hourTotal);
     }
-    console.log(total);
+    let td3 = document.createElement('td');
+    td3.textContent = totalOfTotal;
+    tr1.appendChild(td3);
+
+    // console.log(total);
 }
 
 
